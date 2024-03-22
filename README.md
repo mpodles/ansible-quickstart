@@ -12,8 +12,10 @@ ansible-playbook -i <inventory name> -kK [--list-hosts, --list-tasks] [-t, --lim
 - --list-hosts and/or --list-tasks - the playbook won't run but will show what hosts and tasks will be run
 
 Inventory **example_hosts** file specifies hosts that can be "played" on. For example, with an entry: 
+
     some_server1 
 ansible will try connecting with SSH using DNS hostname(some_server1) unless You specify IP with ansible_host variable:
+
     some_server1 ansible_host=PUT_IP_HERE
 
 Variables in plays and tasks are taken from group_vars and host_vars. Their precedence can be found at:
