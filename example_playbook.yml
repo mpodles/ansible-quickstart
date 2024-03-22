@@ -1,0 +1,30 @@
+- name: "First play"
+  hosts: all
+  # This will escalate privileges for all tasks
+  become: True
+  tasks:
+    - name: "Copy a template file with variable per host into directory per host"
+      template:
+        src: sample_template.j2
+        dest: "{{ PATH }}/.config/new_name"
+      tags: first_tag, second_tag
+
+    - name: "Second task, maybe debug some variable"
+      debug:
+        var: MY_VAR
+      tags: debug
+
+          
+- name: "Second play"
+  hosts: servers
+  tags: will_apply_this_tag_to_all_tasks
+  tasks:
+    - name: "Copy a template file with variable per host into directory per host"
+      file:
+        src: sample_file
+        dest: "{{ PATH }}/.config/new_name"
+      # if You want to escalate privileges for just this task
+      become: True
+      # those tags will be appended
+      tags: first_tag, second_tag
+
